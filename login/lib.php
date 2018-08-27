@@ -34,6 +34,51 @@ define('PWRESET_STATUS_ALREADYSENT', 4);
  *  If no user identifier has been supplied, it displays a form where they can submit their identifier.
  *  Where they have supplied identifier, the function will check their status, and send email as appropriate.
  */
+
+function get_last_course() {
+    global $USER, $DB;
+
+    $veriflastcourse = $DB->count_records('logstore_standard_log', array('action' => "viewed",
+                'target' => "course", 'userid' => $USER->id));
+    // $this->content = new stdClass();
+    if ($veriflastcourse == 0) {
+        return new moodle_url("/");
+        // $this->content->text = html_writer::div('<span style="color:#FF0000;font-weight: bold;"'.
+        //      ' title="'.get_string('lastcourse_courselearned', 'block_lastcourse').'">'.
+        //      get_string('lastcourse_nocourse', 'block_lastcourse').'</span>');
+    } else {
+        $sql = 'SELECT * FROM {logstore_standard_log} WHERE ';
+        $sql .= 'action = ?  AND target = ? AND userid = ? ';
+        $sql .= 'order by timecreated desc';
+        $lastcourse = $DB->get_records_sql($sql, array('viewed', 'course', $USER->id));
+        $i = 0;
+        foreach ($lastcourse as $record) {
+            if ($i > 0)
+                break;
+            $cours = '/course/view.php?id='.$record->courseid;
+            $i++;
+        }
+        $urlcours = new moodle_url($cours);
+        return $urlcours;
+        // $this->content->text = html_writer::link($urlcours, get_string('lastcourse_mylastcourse', 'block_lastcourse'), array('target' => '_self'));
+        // $veriflastasset = $DB->count_records('logstore_standard_log', array('action' => "viewed",
+        //                'target' => "course_module", 'userid' => $USER->id));
+        // if ($veriflastasset > 0) {
+        //     $lastasset = $DB->get_records_sql($sql, array('viewed', 'course_module', $USER->id));
+        //     $j = 0;
+        //     foreach ($lastasset as $record) {
+        //         if ($j > 0)
+        //            break;
+        //         $asset = '/mod/'.$record->objecttable.'/view.php?id='.$record->contextinstanceid;
+        //         $j++;
+        //     }
+        //     $urlasset = new moodle_url($asset);
+        //     $this->content->text .= html_writer::link($urlasset, "<br>".get_string('lastcourse_mylastmodule', 'block_lastcourse'), array('target' => '_self'));
+    }
+    // $this->content->footer = '';
+    // return $this->content;
+}
+
 function core_login_process_password_reset_request() {
     global $OUTPUT, $PAGE;
     $mform = new login_forgot_password_form();

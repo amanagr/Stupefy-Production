@@ -50,7 +50,8 @@ if ($testsession) {
             $urltogo = $CFG->wwwroot.'/';
         }
         unset($SESSION->wantsurl);
-        redirect($urltogo);
+        // redirect($urltogo);
+        redirect(get_last_course());
     } else {
         // TODO: try to find out what is the exact reason why sessions do not work
         $errormsg = get_string("cookiesnotenabled");
