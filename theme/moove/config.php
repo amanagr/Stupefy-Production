@@ -107,14 +107,14 @@ $THEME->layouts = [
         'file' => 'course.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
-        'options' => array('nonavbar' => false, 'langmenu' => true),
+        'options' => array('nonavbar' => true, 'langmenu' => true),
     ),
     // Internal course modules page.
     'incourse' => array(
         'file' => 'incourse.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
-        'options' => array('nonavbar' => false, 'langmenu' => true),
+        'options' => array('nonavbar' => true, 'langmenu' => true),
     ),
     // Used during upgrade and install, and for the 'This site is undergoing maintenance' message.
     // This must not have any blocks, links, or API calls that would lead to database or cache interaction.
