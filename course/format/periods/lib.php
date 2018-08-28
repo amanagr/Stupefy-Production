@@ -95,11 +95,7 @@ class format_periods extends format_base {
 
         $weekday = userdate($dates->start, $dateformat);
         $endweekday = userdate($dates->end - 1, $dateformat);
-        if ($weekday === $endweekday) {
-            return $weekday;
-        } else {
-            return $weekday.' - '.$endweekday;
-        }
+        return $weekday;
     }
 
     /**
