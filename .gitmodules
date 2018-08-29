@@ -1,0 +1,3 @@
+[submodule "blocks/test_creator"]
+	path = blocks/test_creator
+	url = https://github.com/amanagr/test_creator
