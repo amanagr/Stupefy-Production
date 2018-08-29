@@ -258,7 +258,11 @@ function theme_moove_extend_flat_navigation(\flat_navigation $flatnav) {
 function theme_moove_delete_menuitems(\flat_navigation $flatnav) {
 
     $itemstodelete = [
-        'coursehome'
+        'coursehome',
+        'competencies',
+        'participants',
+        'privatefiles',
+        'calendar'
     ];
 
     foreach ($flatnav as $item) {
@@ -284,10 +288,35 @@ function theme_moove_delete_menuitems(\flat_navigation $flatnav) {
  * @param flat_navigation $flatnav
  */
 function theme_moove_rebuildcoursesections(\flat_navigation $flatnav) {
-    global $PAGE;
+    global $PAGE,$CFG,$USER,$DB;
+    //$flatnav->add('foo');
 
     $participantsitem = $flatnav->find('participants', \navigation_node::TYPE_CONTAINER);
+    //$questionbank = navigation_node::create('abcd','abcd','abcd','abcd','abcd');
 
+
+    //hard coded string Question Bank...................................
+    //change icon for question bank..................................... 
+    $node = navigation_node::create(
+        'Question Bank',
+        new moodle_url($CFG->wwwroot . '/question/edit.php?cmid=6&cat=9%2C1&qpage=0&category=10%2C1&qbshowtext=0&recurse=0&recurse=1&showhidden=0'),
+        navigation_node::TYPE_COURSE,
+        null,
+        null,
+        new pix_icon('help', 'prod')
+    );
+
+    $teacherroleid = $DB->get_field('role', 'id', ['shortname' => 'editingteacher']);
+    $isteacheranywhere = $DB->record_exists('role_assignments', ['userid' => $USER->id, 'roleid' => $teacherroleid]);
+    $managerroleid =  $DB->get_field('role', 'id', ['shortname' => 'manager']);
+    $ismanageranywhere = $DB->record_exists('role_assignments', ['userid' => $USER->id, 'roleid' => $managerroleid]);
+    
+    //if user is teacher anywhere or manager anywhere or site admin add question bank else don't
+    if($isteacheranywhere||$ismanageranywhere||$USER->id==2){
+    $flatnav->add($node);
+    }
+    // print_object($flatnav->get('tool_recyclebin'));
+    // die();
     if (!$participantsitem) {
         return;
     }
@@ -317,7 +346,7 @@ function theme_moove_rebuildcoursesections(\flat_navigation $flatnav) {
             }
         }
 
-        $flatnav->add($coursesections, $participantsitem->key);
+        //$flatnav->add($coursesections, $participantsitem->key);
     }
 
     $mycourses = $flatnav->find('mycourses', \navigation_node::NODETYPE_LEAF);
@@ -327,4 +356,5 @@ function theme_moove_rebuildcoursesections(\flat_navigation $flatnav) {
 
         $flatnav->add($mycourses, 'privatefiles');
     }
+    //$participantsitem = $flatnav->find('participants', \navigation_node::TYPE_CONTAINER);
 }
