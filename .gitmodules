@@ -1,3 +1,6 @@
 [submodule "blocks/test_creator"]
 	path = blocks/test_creator
 	url = https://github.com/amanagr/test_creator
+[submodule "question"]
+	path = question
+	url = https://github.com/amanagr/question
