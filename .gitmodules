@@ -4,3 +4,6 @@
 [submodule "question"]
 	path = question
 	url = https://github.com/amanagr/question
+[submodule "mod/quiz"]
+	path = mod/quiz
+	url = https://github.com/amanagr/quiz
