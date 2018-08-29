@@ -31,6 +31,7 @@ M.format_buttons.init = function(Y, numsections) {
     this.ourYUI = Y;
     this.numsections = parseInt(numsections);
     document.getElementById('buttonsectioncontainer').style.display = 'table';
+    document.getElementById('buttonsectioncontainer').style.textAlign = 'center';
 };
 
 M.format_buttons.hide = function() {

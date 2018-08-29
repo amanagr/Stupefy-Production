@@ -122,6 +122,7 @@ class format_buttons_renderer extends format_topics_renderer
                 $currentdivisorhtml = $course->{'divisortext' . $currentdivisor};
                 $currentdivisorhtml = str_replace('[br]', '<br>', $currentdivisorhtml);
                 $currentdivisorhtml = html_writer::tag('div', $currentdivisorhtml, ['class' => 'divisortext']);
+                $currentdivisorhtml .= '<br>';
                 if ($course->inlinesections) {
                     $inline = 'inlinebuttonsections';
                 }
