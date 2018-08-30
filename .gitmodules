@@ -7,3 +7,6 @@
 [submodule "mod/quiz"]
 	path = mod/quiz
 	url = https://github.com/amanagr/quiz
+[submodule "theme/moove"]
+	path = theme/moove
+	url = https://github.com/amanagr/moove
