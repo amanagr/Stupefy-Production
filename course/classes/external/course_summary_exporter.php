@@ -41,9 +41,14 @@ class course_summary_exporter extends \core\external\exporter {
     }
 
     protected function get_other_values(renderer_base $output) {
+        // print_object($this->data);
+        // die();
+        global $DB;
         return array(
             'fullnamedisplay' => get_course_display_name_for_list($this->data),
-            'viewurl' => (new moodle_url('/course/view.php', array('id' => $this->data->id)))->out(false)
+            'viewurl' => (new moodle_url('/course/view.php', array('id' => $this->data->id)))->out(false),
+            'course_category' => $DB->get_record_sql('Select name from {course_categories} where id = ' . $this->data->category)->name,
+            'category_url' => (new moodle_url('/'))
         );
     }
 
@@ -96,7 +101,13 @@ class course_summary_exporter extends \core\external\exporter {
             ),
             'viewurl' => array(
                 'type' => PARAM_URL,
-            )
+            ),
+            'course_category' => array(
+                'type' => PARAM_INT,
+            ),
+            'category_url' => array(
+                'type' => PARAM_URL,
+            ),
         );
     }
 }
