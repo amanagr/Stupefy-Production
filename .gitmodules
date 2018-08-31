@@ -13,3 +13,6 @@
 [submodule "grade"]
 	path = grade
 	url = https://github.com/amanagr/grade
+[submodule "local/searchquestions"]
+	path = local/searchquestions
+	url = https://github.com/MorrisR2/moodle_local_searchquestions
