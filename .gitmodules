@@ -10,3 +10,6 @@
 [submodule "theme/moove"]
 	path = theme/moove
 	url = https://github.com/amanagr/moove
+[submodule "grade"]
+	path = grade
+	url = https://github.com/amanagr/grade
