@@ -35,6 +35,33 @@ define('PWRESET_STATUS_ALREADYSENT', 4);
  *  Where they have supplied identifier, the function will check their status, and send email as appropriate.
  */
 
+function get_last_course_id() {
+    global $USER, $DB;
+
+    $verifylastcourse = $DB->count_records('logstore_standard_log', array('action' => "viewed",
+                'target' => "course", 'userid' => $USER->id));
+    // $this->content = new stdClass();
+    if ($verifylastcourse == 0) {
+        return 0;
+        // $this->content->text = html_writer::div('<span style="color:#FF0000;font-weight: bold;"'.
+        //      ' title="'.get_string('lastcourse_courselearned', 'block_lastcourse').'">'.
+        //      get_string('lastcourse_nocourse', 'block_lastcourse').'</span>');
+    } else {
+        $sql = 'SELECT * FROM {logstore_standard_log} WHERE ';
+        $sql .= 'action = ?  AND target = ? AND userid = ? ';
+        $sql .= 'order by timecreated desc';
+        $lastcourse = $DB->get_records_sql($sql, array('viewed', 'course', $USER->id));
+        $i = 0;
+        foreach ($lastcourse as $record) {
+            if ($i > 0)
+                break;
+            $id = $record->courseid;
+            $i++;
+        }
+        return $id;
+    }
+}
+
 function get_last_course() {
     global $USER, $DB;
 
