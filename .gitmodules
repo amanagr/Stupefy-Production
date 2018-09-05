@@ -16,3 +16,6 @@
 [submodule "local/searchquestions"]
 	path = local/searchquestions
 	url = https://github.com/MorrisR2/moodle_local_searchquestions
+[submodule "blocks/ccreator"]
+	path = blocks/ccreator
+	url = https://github.com/amanagr/ccreator
