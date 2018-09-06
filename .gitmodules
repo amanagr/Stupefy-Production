@@ -19,3 +19,6 @@
 [submodule "blocks/ccreator"]
 	path = blocks/ccreator
 	url = https://github.com/amanagr/ccreator
+[submodule "course"]
+	path = course
+	url = https://github.com/amanagr/course
